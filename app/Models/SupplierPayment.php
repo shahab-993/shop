@@ -10,6 +10,7 @@ class SupplierPayment extends Model
     protected $fillable = [
         'supplier_id',
         'purchase_id',
+        'opening_balance_id',
         'user_id',
         'amount',
         'paid_at',
@@ -22,7 +23,6 @@ class SupplierPayment extends Model
         return [
             'amount' => 'decimal:2',
             'paid_at' => 'datetime',
-            
         ];
     }
 
@@ -34,6 +34,11 @@ class SupplierPayment extends Model
     public function purchase(): BelongsTo
     {
         return $this->belongsTo(Purchase::class);
+    }
+
+    public function openingBalance(): BelongsTo
+    {
+        return $this->belongsTo(SupplierOpeningBalance::class);
     }
 
     public function user(): BelongsTo

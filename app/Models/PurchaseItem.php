@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PurchaseItem extends Model
 {
@@ -28,13 +29,24 @@ class PurchaseItem extends Model
         ];
     }
 
+    // Purchase
     public function purchase(): BelongsTo
     {
         return $this->belongsTo(Purchase::class);
     }
 
+    // Product
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    // Inventory Batches
+    public function inventoryBatches(): HasMany
+    {
+        return $this->hasMany(
+            InventoryBatch::class,
+            'source_item_id'
+        )->where('source_type', 'purchase');
     }
 }

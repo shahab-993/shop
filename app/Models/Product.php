@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\ProductTranslation;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
@@ -33,18 +32,45 @@ class Product extends Model
         ];
     }
 
+    // Category
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
+    // Unit
     public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class);
     }
 
+    // Translations
     public function translations(): HasMany
     {
         return $this->hasMany(ProductTranslation::class);
+    }
+
+    // Inventory Batches
+    public function inventoryBatches(): HasMany
+    {
+        return $this->hasMany(InventoryBatch::class);
+    }
+
+    // Stock Adjustments
+    public function stockAdjustments(): HasMany
+    {
+        return $this->hasMany(StockAdjustment::class);
+    }
+
+    // Purchase Items
+    public function purchaseItems(): HasMany
+    {
+        return $this->hasMany(PurchaseItem::class);
+    }
+
+    // Sale Items
+    public function saleItems(): HasMany
+    {
+        return $this->hasMany(SaleItem::class);
     }
 }
